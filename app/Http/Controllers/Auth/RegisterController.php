@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use App\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,10 +50,18 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'role_id' => ['required'],
+
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+    public function createe()
+{
+    $roles = Role::all();
+    return view('auth.register', compact('roles'));
+}
 
     /**
      * Create a new user instance after a valid registration.
@@ -65,6 +73,9 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
+            'role_id' => $data['role_id'],
+
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->timestamps();
 
-            $table->foreign('property_id')->references('id')->on('properties');
-            $table->foreign('customer_id')->references('id')->on('users');
+            // $table->foreign('property_id')->references('id')->on('properties');
+            // $table->foreign('customer_id')->references('id')->on('users');
         });
     }
 

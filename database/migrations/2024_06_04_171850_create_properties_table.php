@@ -24,8 +24,8 @@ return new class extends Migration
             $table->date('available_to')->nullable();
             $table->timestamps();
 
-            $table->foreign('landlord_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+            // $table->foreign('landlord_id')->references('id')->on('users');
+            // $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
