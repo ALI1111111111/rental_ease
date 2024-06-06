@@ -1,32 +1,9 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>{{ $category->name }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .property-card {
@@ -36,11 +13,6 @@
         .property-card:hover {
             transform: scale(1.05);
         }
-        .carousel-item img {
-            height: 400px;
-            object-fit: cover;
-        }
-
     </style>
 </head>
 <body>
@@ -59,46 +31,15 @@
                 </li>
             </ul>
         </div>
-        <form class="form-inline my-2 my-lg-0" method="GET" action="{{ route('home.search') }}">
-            <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </nav>
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="{{ asset('images/' . 'img1.jpeg') }}"   alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="{{ asset('images/' . 'img3.jpeg') }}"alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="{{ asset('images/' . 'img1.jpeg') }}"   alt="third slide">
-
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
     <div class="container mt-5">
+        <h2>{{ $category->name }}</h2>
         <div class="row">
             @foreach($properties as $property)
                 <div class="col-md-4">
                     <div class="card property-card">
-                        <img src="{{ asset('images/' . $property->image) }}"  class="card-img-top" alt="{{ $property->title }}">
+                        <img src="{{ asset('images/' . $property->image) }}" class="card-img-top" alt="{{ $property->title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $property->title }}</h5>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#propertyModal{{ $property->id }}">View Details</button>
@@ -116,11 +57,13 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <img src="{{ asset('images/' . $property->image) }}"  class="img-fluid" alt="{{ $property->title }}">
+                                <img src="{{ asset('images/' . $property->image) }}" class="img-fluid" alt="{{ $property->title }}">
                                 <p>Description: {{ $property->description }}</p>
                                 <p>Location:  {{ $property->location }}</p>
                                 <p>Price:     {{ $property->price }}</p>
                                 <p>facilities:  {{ $property->facilities }}</p>
+
+
                             </div>
                         </div>
                     </div>
@@ -134,4 +77,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

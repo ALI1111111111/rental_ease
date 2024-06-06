@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Property;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -53,6 +54,17 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index')
             ->with('success', 'Category deleted successfully');
+    }
+    public function show($id)
+    {
+        $category = Category::find($id);
+        $properties = Property::where('category_id', $id)->get();
+        return view('categories.category', compact('category', 'properties'));
+    }
+    public function client()
+    {
+        $categories = Category::all();
+        return view('categories.categories', compact('categories'));
     }
 }
 

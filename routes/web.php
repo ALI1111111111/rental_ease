@@ -8,9 +8,17 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 
-Route::get('/', [PropertyController::class, 'index'])->name('properties.index');
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', [HomeController::class, 'search'])->name('home.search');
+
+Route::get('/category', [CategoryController::class, 'client'])->name('category');
+Route::get('/category/{id}', [CategoryController::class, 'show'])->name('categor.show');
+
+Route::view('/about', 'about')->name('about');
 
 Route::get('/dashboard', function () {
     return view('properties.index');
